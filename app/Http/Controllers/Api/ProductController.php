@@ -11,19 +11,33 @@ class ProductController extends Controller
 {
     //
 
-    public function index()
+    public function index(Request $request)
     {
+
+        $perPage = $request->query('perPage', 5); // Default to 5 items per page if not specified
+        $page = $request->query('page', 1); // Default to the first page if not specified
+
         //get all posts
-        $posts = Product::latest()->paginate(5);
+        $posts = Product::join('users', 'products.user_id', '=', 'users.id')
+        ->select('products.*', 'users.name as created_by') // Select the desired columns
+        ->latest('products.created_at') // Order by the latest products
+        ->paginate($perPage, ['*'], 'page', $page); //
 
         //return collection of posts as a resource
+
+        
         return new ProductResource(true, 'List Data Posts', $posts);
     }
 
     public function show($id)
     {
         //find post by ID
-        $post = Product::find($id);
+       // $post = Product::find($id)  ->join('users', 'products.user_id', '=', 'users.id');
+       // $post = Product::find($id)  ;
+        $post = Product::join('users', 'products.user_id', '=', 'users.id')
+        ->where('products.id', $id)
+        ->select('products.*', 'users.name as nameUser') // Select specific columns if needed
+        ->first();
 
         //return single post as a resource
         return new ProductResource(true, 'Detail Data Post!', $post);
@@ -39,7 +53,8 @@ class ProductController extends Controller
             'title'         => 'required|min:5',
             'description'   => 'required|min:10',
             'price'         => 'required|numeric',
-            'stock'         => 'required|numeric'
+            'stock'         => 'required|numeric',
+           
         ]);
 
         //check if validation fails
@@ -57,9 +72,12 @@ class ProductController extends Controller
             'title'         => $request->title,
             'description'   => $request->description,
             'price'         => $request->price,
-            'stock'         => $request->stock
+            'stock'         => $request->stock,
+            'user_id'      => $request->user()->id
+          
         ]);
-
+        $product['auth-user'] =$request->user()->id ;
+        //$objectResponse["product"]
         //return response
         return new ProductResource(true, 'Data Product Berhasil Ditambahkan!', $product);
     }
