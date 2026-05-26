@@ -11,9 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
-            $table->bigInteger('user_id')->nullable(true)->change();
+            $table->boolean('active')->default(true)->after('email');
         });
     }
 
@@ -22,10 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('products', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             //
-            $table->bigInteger('user_id')->nullable(true)->change();
-           // $table->bigInteger('user_id')->nullable();
+            $table->dropColumn('active');
         });
     }
 };
