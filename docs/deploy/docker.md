@@ -4,3 +4,5 @@ docker run -p 8080:8080 laravel_starter:test
 test
 
 docker build -t heriyantojob/laravel-app:latest .
+
+

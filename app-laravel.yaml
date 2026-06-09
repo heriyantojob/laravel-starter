@@ -9,6 +9,6 @@ metadata:
 spec:
   containers:
     - name: app-laravel
-      image: ahmadzky08/laravel-app:latest
+      image: heriyantojob/laravel-app:latest
       ports:
         - containerPort: 8080
