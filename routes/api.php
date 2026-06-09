@@ -8,6 +8,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 Route::apiResource('/posts', App\Http\Controllers\Api\PostController::class);
 Route::apiResource('/example', App\Http\Controllers\Api\ExampleController::class);
+Route::apiResource('/categories', App\Http\Controllers\Api\CategoryController::class);
 // Route::post('/example', [App\Http\Controllers\Api\ExampleController::class, 'store'])->name('example.store');
 Route::middleware('auth:api')->apiResource('/products', App\Http\Controllers\Api\ProductController::class);
 
