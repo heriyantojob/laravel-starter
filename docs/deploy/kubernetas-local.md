@@ -18,20 +18,20 @@ docker run -d \
 -----------------
 deploy kubernetas
 -----------------
-sudo microk8s kubectl create -f app-laravel.yaml
+sudo  kubectl create -f app-laravel.yaml
 
-sudo microk8s kubectl replace -f app-laravel.yaml
+sudo  kubectl replace -f app-laravel.yaml
 
-sudo microk8s kubectl get pod 
+sudo  kubectl get pod 
 
 
-sudo microk8s kubectl port-forward app-laravel 8080:8080
+sudo  kubectl port-forward app-laravel 8080:8080
 
-sudo microk8s kubectl port-forward pod/app-laravel 5000:8080
-sudo microk8s kubectl port-forward app-laravel 8080:8000
+sudo  kubectl port-forward pod/app-laravel 5000:8080
+sudo  kubectl port-forward app-laravel 8080:8000
 
-sudo microk8s kubectl delete pod "app-laravel"
+sudo  kubectl delete pod "app-laravel"
 
-sudo microk8s kubectl delete pods --all
+sudo  kubectl delete pods --all
 
-sudo microk8s kubectl delete deployment --all
+sudo  kubectl delete deployment --all
