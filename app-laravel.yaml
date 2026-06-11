@@ -12,3 +12,6 @@ spec:
       image: heriyantojob/laravel-app:latest
       ports:
         - containerPort: 8080
+      envFrom:
+        - configMapRef:
+            name: laravel-env
