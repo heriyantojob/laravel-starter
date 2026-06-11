@@ -12,6 +12,57 @@ spec:
       image: heriyantojob/laravel-app:latest
       ports:
         - containerPort: 8080
-      envFrom:
-        - configMapRef:
-            name: laravel-env
+      env:
+        - name: APP_NAME
+          value: "Laravel"
+        - name: APP_ENV
+          value: "local"
+        - name: APP_KEY
+          value: "base64:MDAY2DrW1meOhzeHPMZgV0omVwIgXNbKUr3+8/qS3bw="
+        - name: APP_DEBUG
+          value: "true"
+        - name: APP_TIMEZONE
+          value: "UTC"
+        - name: APP_URL
+          value: "http://localhost"
+
+        # MYSQL CONFIG
+        - name: DB_CONNECTION
+          value: "mysql"
+        - name: DB_HOST
+          value: "host.docker.internal"
+        - name: DB_PORT
+          value: "3306"
+        - name: DB_DATABASE
+          value: "laravel_starter"
+        - name: DB_USERNAME
+          value: "root"
+        - name: DB_PASSWORD
+          value: ""
+
+        - name: SESSION_DRIVER
+          value: "database"
+        - name: CACHE_STORE
+          value: "redis"
+        - name: REDIS_HOST
+          value: "127.0.0.1"
+        - name: REDIS_PORT
+          value: "6379"
+
+        - name: MAIL_MAILER
+          value: "log"
+        - name: MAIL_FROM_ADDRESS
+          value: "hello@example.com"
+        - name: MAIL_FROM_NAME
+          value: "${APP_NAME}"
+
+        - name: AWS_DEFAULT_REGION
+          value: "us-east-1"
+
+        - name: VITE_APP_NAME
+          value: "Laravel"
+
+        - name: JWT_SECRET
+          value: ""
+        - name: JWT_SHOW_BLACKLIST_EXCEPTION
+          value: ""
